@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const fetchLocalStorage = () => {
-    let cart = localStorage.getItem("cart")
+    let cart = localStorage.getItem('cart')
 
     if(cart){
         return JSON.parse(localStorage.getItem('cart'))
@@ -16,7 +16,7 @@ const storeInLocalStorage = (data) => {
 }
 
 const initialState = {
-    cart: fetchLocalStorage(),
+    carts: fetchLocalStorage(),
     itemCount: 0,
     totalAmount: 0
 }
@@ -24,7 +24,7 @@ const initialState = {
 const cartSlice = createSlice({
     name: "carts",
     initialState,
-    reducer: {
+    reducers: {
         addToCart: (state, action) => {
             const isItemCart = state.carts.find(item => item.id === action.payload.id)
 
@@ -62,8 +62,8 @@ const cartSlice = createSlice({
         },
         getCartTotal: (state) => {
             state.totalAmount = state.carts.reduce((cartTotal, cartItem) => {
-                return cartTotal += cartItem.totalPrice
-            }, 0)
+                return cartTotal += cartItem.price * cartItem.quantity
+            }, 0);
 
             state.itemCount = state.carts.length
         }

@@ -16,7 +16,7 @@ const DetailSingleProduct = ({ productDetail }) => {
     }
 
     const addToBasket = () => {
-        dispatch(addToCart({id: productDetail?.id, image: productDetail?.image, title: productDetail?.title, price: productDetail?.price, quantity: productDetail?.quantity }))
+        dispatch(addToCart({id: productDetail?.id, title: productDetail?.title, image: productDetail?.image, quantity: quantity,  price: productDetail?.price, description: productDetail?.description }))
     }
 
   return (

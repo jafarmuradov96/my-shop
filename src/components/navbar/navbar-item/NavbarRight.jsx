@@ -3,25 +3,27 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartTotal } from "../../../redux/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const NavbarRight = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { carts } = useSelector(state => state.carts)
+  const { itemCount } = useSelector(state => state.carts)
+  console.log(itemCount, 'carts');
 
-  useEffect(()=> {
+  useEffect(() => {
       dispatch(getCartTotal())
-  }, [dispatch])
+  },[dispatch])
 
-  console.log(carts, 'carts');
   return (
     <div className="flex items-center gap-3">
       <div className=" flex items-center rounded-full bg-gray-200 px-4 py-3">
       <input type="text" placeholder="Axtar" className="bg-gray-200 rounded-full outline-none" />
       <AiOutlineSearch  size ={25}/>
       </div>
-      <div className="relative">
+      <div onClick={ () => navigate("cart")} className="relative">
         <span className="absolute -top-3 -right-3 bg-red-600 text-white flex items-center justify-center rounded-full w-5 h-5">
-          0
+          {itemCount}
         </span>
         <AiOutlineShoppingCart size={25} />
       </div>
